@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# 20.times do |i|
+#   Post.create(
+#     title: Faker::Book.title
+#     price: rand(0..1000)
+#     description: Faker::Quote.famous_last_words
+#     user_id: rand(1..100)
+#   )
+#   puts "created post #{i + 1}"
+# end
