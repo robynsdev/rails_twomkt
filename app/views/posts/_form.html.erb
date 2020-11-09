@@ -30,6 +30,11 @@
   </p>
  
   <p>
+    <%= form.label :picture %><br>
+    <%= form.file_field :picture, accept: 'image/png, image/jpg, image/jpeg' %>
+  </p>
+
+  <p>
     <%= form.submit %>
   </p>
 <% end %>
