@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, only: [:new]
+
   def index
     @posts = Post.all
   end
@@ -40,6 +42,9 @@ class PostsController < ApplicationController
     @post.destroy
    
     redirect_to posts_path
+  end
+
+  def restricted
   end
    
   private
