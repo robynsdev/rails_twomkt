@@ -34,6 +34,16 @@
     <%= form.file_field :picture, accept: 'image/png, image/jpg, image/jpeg' %>
   </p>
 
+  <div class="field">
+    <%= form.label :categories %>
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+      <%= b.label do %>
+        <%= b.check_box + b.text %>
+      <% end %>
+    <% end %>
+  </div>
+
+
   <p>
     <%= form.submit %>
   </p>

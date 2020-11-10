@@ -15,3 +15,13 @@
 #   )
 #   puts "created post #{i + 1}"
 # end
+
+categories = ["Roll and Move", "Worker Placement", "Cooperative", "Deck Building", "Area Control", "Secret Identity", "Legacy Games", "Party Games", "Puzzle Games", "Combat Games"]
+
+if Category.count == 0
+  categories.each do |c|
+    Category.create(name: c)
+    puts "created #{c} category"
+  end
+end
+
