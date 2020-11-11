@@ -15,5 +15,5 @@
   <%= @post.description %>
 </p>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<% if can? :update, @post %><%= link_to 'Edit', edit_post_path(@post) %><% end %>|
 <%= link_to 'Back', posts_path %>
