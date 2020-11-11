@@ -37,6 +37,9 @@ gem 'cancancan'
 gem 'bootstrap'
 gem 'jquery-rails'
 
+# admin interface
+gem 'rails_admin'
+
 
 
 group :development, :test do
