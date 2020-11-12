@@ -16,7 +16,7 @@
       <tr>
         <td class="rounded"><%= image_tag post.picture, class: "post-img" if post.picture.attached? %></td>
         <td><%= post.title %></td>
-        <td><%= post.price %></td>
+        <td>$<%= post.price %></td>
         <td><%= post.description %></td>
         <td><%= link_to 'Show', post_path(post) %></td>
         <td><% if can? :update, post %><%= link_to 'Edit', edit_post_path(post) %><% end %></td>
