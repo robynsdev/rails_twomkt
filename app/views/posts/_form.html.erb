@@ -1,50 +1,90 @@
-<%= form_with model: @post, local: true do |form| %>
-
-<% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@post.errors.count, "error") %> prohibited
-        this post from being saved:
-      </h2>
-      <ul>
-        <% @post.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+<div class="container">
+  <div class="row">
+    <div class="col-3">
     </div>
-  <% end %>
+    <div class="col-6">
+      <%= form_with model: @post, local: true do |form| %>
 
-  <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
-  </p>
+        <% if @post.errors.any? %>
+          <div id="error_explanation">
+            <h2>
+              <%= pluralize(@post.errors.count, "error") %> prohibited
+              this post from being saved:
+            </h2>
+            <ul>
+              <% @post.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-  <p>
-    <%= form.label :price %><br>
-    <%= form.text_field :price %>
-  </p>
- 
-  <p>
-    <%= form.label :description %><br>
-    <%= form.text_area :description %>
-  </p>
- 
-  <p>
-    <%= form.label :picture %><br>
-    <%= form.file_field :picture, accept: 'image/png, image/jpg, image/jpeg' %>
-  </p>
+        <p>
+          <%= form.label :title %><br>
+          <%= form.text_field :title %>
+        </p>
 
-  <div class="field">
-    <%= form.label :categories %>
-    <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
-      <%= b.label do %>
-        <%= b.check_box + b.text %>
-      <% end %>
-    <% end %>
+        <br>
+
+        <p>
+          <%= form.label :price %><br>
+          <%= form.text_field :price %>
+        </p>
+        <br>
+        <div class="field">
+          <%= form.radio_button :sales, true %>
+          <%= form.label :sales, "Fixed price", :value => "true"  %>
+          <%= form.radio_button :sales, false, :checked => true %>
+          <%= form.label :sales, "Negotiable", :value => "false" %>
+        </div>
+
+        <br>
+
+        <p>
+          <%= form.label :description %><br>
+          <%= form.text_area :description %>
+        </p>
+
+        <br>
+
+        <p>
+          <%= form.label :picture %><br>
+          <%= form.file_field :picture, accept: 'image/png, image/jpg, image/jpeg' %>
+        </p>
+
+        <br>
+
+        <div class="field">
+          <%= form.radio_button :sales, true %>
+          <%= form.label :sales, "Delivery", :value => "true"  %>
+          <%= form.radio_button :sales, false, :checked => true %>
+          <%= form.label :sales, "Collection", :value => "false" %>
+          <%= form.radio_button :sales, false, :checked => true %>
+          <%= form.label :sales, "Either", :value => "false" %>
+        </div>
+
+        <br>
+
+        <div class="field">
+          <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+            <%= b.label do %>
+              <%= b.check_box + b.text %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <br>
+
+          <p>
+            <%= form.submit %>
+          </p>
+        <% end %>
+
+      </div>
+
+    </div>
+    <div class="col-3">
+    </div>
   </div>
+</div>
 
-
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
