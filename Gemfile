@@ -40,7 +40,11 @@ gem 'jquery-rails'
 # admin interface
 gem 'rails_admin'
 
+# payment  
 gem "stripe"
+
+# internal user messaging 
+gem 'mailboxer'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
