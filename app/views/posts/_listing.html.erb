@@ -1,31 +1,35 @@
 <div class="row">
-    <table class="table table-hover table-responsive-sm">
-      <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col">Title</th>
-        <th scope="col">Price</th>
-        <th scope="col">Description</th>
-        <th scope="col"></th>
-      </tr>
-      </thead>
-    
+    <table class="table table-hover table-responsive-sm">   
       <tbody>  
         <% @posts.each do |post| %>
           <tr>
             <td class="rounded"><%= image_tag post.picture, class: "post-img" if post.picture.attached? %></td>
-            <td><%= post.title %></td>
-            <td>$<%= post.price %></td>
-            <td><%= post.description %></td>
-            <td><%= link_to 'Show', post_path(post) %></td>
-            <td><% if can? :update, post %><%= link_to 'Edit', edit_post_path(post) %><% end %></td>
-            <td><% if can? :destroy, post %><%= link_to 'Destroy', post_path(post),
-                    method: :delete,
-                    data: { confirm: 'Are you sure?' } %><% end %></td>
+            <td class="text-left">
+              <%= post.title %>
+              <p id="listing-descript"><%= post.description %></p></td>
+            <td><strong>$<%= post.price %></strong></td>
           </tr>
         <% end %>
       </tbody>  
     </table>
 </div>
 
-
+<% @posts.each do |post| %>
+  <%= link_to post_path(post), id: "posts-index-links" do %>
+    <div class="row text-left p-4 border-bottom">
+      <div class="col-3 text-center">
+        <%= image_tag post.picture, class: "post-img" if post.picture.attached? %>    
+      </div>
+      <div class="col-6">
+        <%= post.title %>
+        <p id="listing-descript"><%= post.description %></p>
+      </div>
+      <div class="col-3">
+        <strong>$<%= post.price %></strong>
+        <p id="listing-date">
+          <%= time_ago_in_words(post.created_at) %> ago
+        </p>
+      </div>
+    </div>
+  <% end %>
+<% end %>

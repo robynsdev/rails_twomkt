@@ -1,6 +1,6 @@
 <div class="container mb-4">
   <div class="row">
-    <div class="col-12 m-2 txtleft">
+    <div class="col-12 m-2 text-left">
       
       <h2>
         <%= @post.title %>
@@ -9,17 +9,22 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-8 txtleft">
+    <div class="col-8 text-left">
 
       <%= image_tag @post.picture, class: "show-img" if @post.picture.attached? %>
 
-      <p class="text-green">
-        $<%= @post.price %>
+      <p>
+        <span class="text-green text-lg">$<%= @post.price %></span>
+        <span><%= @post.sales %></span>
+      </p>
+
+      <p>
+        <i><%= @post.delivery.capitalize.gsub("_", " ") %></i>
       </p>
 
       <p>
         <strong>Description:</strong>
-        <%= @post.description %>
+        <%= simple_format(@post.description) %>
       </p>
       
       <p>
@@ -33,20 +38,20 @@
         <% end %>
       </p>
     </div>
-    <div class="col-4 txtleft">
+    <div class="col-4 text-left">
       <p> Contact <%= User.find(@post.user_id).name %> </p>
     </div>
 
   </div>
   <div class="border rounded-sm p-3">
     <div class="row">
-      <div class="col-6 txtleft">
+      <div class="col-6 text-left">
         <p>
           <strong>Date Listed:</strong>
           <%= time_ago_in_words(@post.created_at) %> ago
         </p>
       </div>
-      <div class="col-6 txtleft">
+      <div class="col-6 text-left">
         <p>
           <strong>Last Edited:</strong>
           <%= time_ago_in_words(@post.updated_at) %> ago
