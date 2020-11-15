@@ -1,19 +1,3 @@
-<div class="row">
-    <table class="table table-hover table-responsive-sm">   
-      <tbody>  
-        <% @posts.each do |post| %>
-          <tr>
-            <td class="rounded"><%= image_tag post.picture, class: "post-img" if post.picture.attached? %></td>
-            <td class="text-left">
-              <%= post.title %>
-              <p id="listing-descript"><%= post.description %></p></td>
-            <td><strong>$<%= post.price %></strong></td>
-          </tr>
-        <% end %>
-      </tbody>  
-    </table>
-</div>
-
 <% @posts.each do |post| %>
   <%= link_to post_path(post), id: "posts-index-links" do %>
     <div class="row text-left p-4 border-bottom">

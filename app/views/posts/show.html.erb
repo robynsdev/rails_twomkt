@@ -1,7 +1,8 @@
 <div class="container mb-4">
   <div class="row">
     <div class="col-12 m-2 text-left">
-      
+      <%= link_to '< Back', posts_path %>
+
       <h2>
         <%= @post.title %>
       </h2>
@@ -19,7 +20,9 @@
       </p>
 
       <p>
-        <i><%= @post.delivery.capitalize.gsub("_", " ") %></i>
+        <% if @post.delivery %>
+          <i><%= @post.delivery.capitalize.gsub("_", " ") %></i>
+        <% end %>
       </p>
 
       <p>

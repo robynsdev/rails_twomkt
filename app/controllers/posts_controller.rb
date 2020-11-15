@@ -7,7 +7,10 @@ class PostsController < ApplicationController
   def index
     # @posts = Post.all
     if params[:query].present?
-      posts = Post.search(params[:query])
+      @posts = Post.search(params[:query])
+      @posts = Post.kinda_matching(params[:query])
+      # @posts = Post.kinda_spelled_like(params[:query])
+      # @posts = Post.sounds_like(params[:query])
     else
       @posts = Post.all
     end
