@@ -1,15 +1,19 @@
-<div class="container">
+<div class="container mb-4">
   <div class="row">
-
-    <div class="col-6">
-      <p>
-        <strong>Title:</strong>
+    <div class="col-12 m-2 txtleft">
+      
+      <h2>
         <%= @post.title %>
-      </p>
+      </h2>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 txtleft">
 
       <%= image_tag @post.picture, class: "show-img" if @post.picture.attached? %>
 
-      <p class="lead">
+      <p class="text-green">
         $<%= @post.price %>
       </p>
 
@@ -17,18 +21,53 @@
         <strong>Description:</strong>
         <%= @post.description %>
       </p>
-
-      <button id="checkout-button">Purchase</button>
-
-
-
-      <% if can? :update, @post %><%= link_to 'Edit', edit_post_path(@post) %><% end %>|
-      <%= link_to 'Back', posts_path %>
-
+      
+      <p>
+        <strong>Categories:</strong>
+        <% @post.category_ids.each_with_index do |cat_id, i| %>
+          <% if i == @post.category_ids.length - 1 %>
+            <%= @categories.find(cat_id).name %>
+          <% else %>
+            <%= @categories.find(cat_id).name %>, 
+          <% end %>
+        <% end %>
+      </p>
+    </div>
+    <div class="col-4 txtleft">
+      <p> Contact <%= User.find(@post.user_id).name %> </p>
     </div>
 
-    <div class="col-2">
-      <p> Contact <%= User.find(@post.user_id).name %> </p>
+  </div>
+  <div class="border rounded-sm p-3">
+    <div class="row">
+      <div class="col-6 txtleft">
+        <p>
+          <strong>Date Listed:</strong>
+          <%= time_ago_in_words(@post.created_at) %> ago
+        </p>
+      </div>
+      <div class="col-6 txtleft">
+        <p>
+          <strong>Last Edited:</strong>
+          <%= time_ago_in_words(@post.updated_at) %> ago
+        </p>
+      </div>
+    </div>  
+    <div class="row">
+      <div class="col-12">
+        <button id="checkout-button">Purchase</button>
+        <br>
+        <br>
+        <% if can? :update, @post %>
+          <%= link_to 'Edit', edit_post_path(@post) %> | 
+        <% end %>
+        <% if can? :destroy, @post %>
+          <%= link_to 'Delete', post_path(@post), 
+            method: :delete,
+            data: { confirm: 'Are you sure?' } %> |       
+        <% end %>
+          <%= link_to 'Back', posts_path %>
+      </div>
     </div>
   </div>
 </div>

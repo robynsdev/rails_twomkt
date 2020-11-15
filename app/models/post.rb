@@ -1,4 +1,8 @@
 class Post < ApplicationRecord
+  include PgSearch::Model
+  
+  pg_search_scope :search, against: [:title, :description]
+  
   belongs_to :user
   has_one_attached :picture
   has_and_belongs_to_many :categories

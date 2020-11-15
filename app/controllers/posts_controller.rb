@@ -1,10 +1,28 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_cat, only: [:show]
   load_and_authorize_resource
 
   def index
-    @posts = Post.all
+    # @posts = Post.all
+    if params[:query].present?
+      posts = Post.search(params[:query])
+    else
+      @posts = Post.all
+    end
+  end
+
+  def search
+    query = params[:search]
+
+    results = Post.where('name LIKE ?', "%#{query}%")
+    if params[:filter] == 'Select Filter'
+      @posts = results
+    else
+      symbol = params[:filter].gsub(/ /, '_').downcase!.to_sym
+      @posts = results.where(symbol => true)
+    end
   end
   
   def show
@@ -50,7 +68,11 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
+    def set_cat
+      @categories = Category.all
+    end
+
     def post_params
-      params.require(:post).permit(:title, :price, :description, :picture, category_ids: [] )
+      params.require(:post).permit(:title, :price, :description, :picture, :query, :commit, category_ids: [] )
     end
 end
