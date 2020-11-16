@@ -1,31 +1,26 @@
 <h1>Ad listing</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <%= form_tag(posts_path, method: "get") do %>
+      <div class="input-group mb-5">
+        <div class="col-8 nopad">
+          <%= text_field_tag :query, '', class:'form-control', placeholder:'Search...' %>
+        </div>
+        <div class="col-3 nopad">
 
-<table class="table table-hover table-responsive-sm">
-  <thead>
-  <tr>
-    <th scope="col"></th>
-    <th scope="col">Title</th>
-    <th scope="col">Price</th>
-    <th scope="col">Description</th>
-    <th scope="col"></th>
-  </tr>
-  </thead>
- 
-  <tbody>  
-    <% @posts.each do |post| %>
-      <tr>
-        <td class="rounded"><%= image_tag post.picture, class: "post-img" if post.picture.attached? %></td>
-        <td><%= post.title %></td>
-        <td>$<%= post.price %></td>
-        <td><%= post.description %></td>
-        <td><%= link_to 'Show', post_path(post) %></td>
-        <td><% if can? :update, post %><%= link_to 'Edit', edit_post_path(post) %><% end %></td>
-        <td><% if can? :destroy, post %><%= link_to 'Destroy', post_path(post),
-                method: :delete,
-                data: { confirm: 'Are you sure?' } %><% end %></td>
-      </tr>
-    <% end %>
-  </tbody>  
-</table>
+        <%= select_tag :cat, options_from_collection_for_select(Category.all, :id, :name), {:class=>'form-control', :prompt => 'Filter Categories'} %>
 
-<td><%= link_to 'Back', home_index_path %></td>
+        </div>
+        <div class="col-1 nopad">
+          <%= submit_tag "Search", class:'btn btn-dark' %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="post-listing-container">
+    <%= render 'posts/listing' %>
+  </div>
+</div>

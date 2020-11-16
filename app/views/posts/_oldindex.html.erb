@@ -1,0 +1,77 @@
+<div class="row">
+  <table class="table table-hover table-responsive-sm">
+    <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Title</th>
+      <th scope="col">Price</th>
+      <th scope="col">Description</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+  
+    <tbody>  
+      <% @posts.each do |post| %>
+        <tr>
+          <td class="rounded"><%= image_tag post.picture, class: "post-img" if post.picture.attached? %></td>
+          <td><%= post.title %></td>
+          <td>$<%= post.price %></td>
+          <td><%= post.description %></td>
+          <td><%= link_to 'Show', post_path(post) %></td>
+          <td><% if can? :update, post %><%= link_to 'Edit', edit_post_path(post) %><% end %></td>
+          <td><% if can? :destroy, post %><%= link_to 'Destroy', post_path(post),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' } %><% end %></td>
+        </tr>
+      <% end %>
+    </tbody>  
+  </table>
+</div>
+
+<div class="row">
+    <table class="table table-hover table-responsive-sm">   
+      <tbody>  
+        <% @posts.each do |post| %>
+          <tr>
+            <td class="rounded"><%= image_tag post.picture, class: "post-img" if post.picture.attached? %></td>
+            <td class="text-left">
+              <%= post.title %>
+              <p id="listing-descript"><%= post.description %></p></td>
+            <td><strong>$<%= post.price %></strong></td>
+          </tr>
+        <% end %>
+      </tbody>  
+    </table>
+</div>
+
+
+<%# search bar %>
+<div class="post-container">
+  <div class="row">
+    <div class="col-12">
+      <%= form_tag(search_path, method: "get", remote: true) do %>
+      <div class="input-group mb-5">
+        <div class="col-8 nopad">
+          <%= text_field_tag :search, '', class:'form-control', placeholder:'Search...', onkeydown:'clickSubmit();' %>
+          <%# <input type=”text” name=”query” id=”query” placeholder=”I want to find…”> %>
+        </div>
+        <div class="col-4 nopad">
+          <%= select_tag "filter", options_for_select(['Select Filter', 
+          'Opt1',
+          'Opt2'
+          ]), class:'custom-select'%>
+          <%= submit_tag "Search", class:'btn btn-dark', id:'search_submit', style:'display:none' %>
+          <%# <input type=”submit” name=”commit” value=“Search” class=“btn btn-default”> %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+
+
+<%# searchbar 2 %>
+  <%= form_tag(posts_path, method: "get") do %>
+  <%= label_tag(:query, "Search for:") %>
+  <%= text_field_tag(:query) %>
+  <%= submit_tag "Search", class:'btn btn-dark' %>
+  <% end %>

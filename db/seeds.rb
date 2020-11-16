@@ -6,14 +6,20 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# 20.times do |i|
-#   Post.create(
-#     title: Faker::Book.title
-#     price: rand(0..1000)
-#     description: Faker::Quote.famous_last_words
-#     user_id: rand(1..100)
-#   )
-#   puts "created post #{i + 1}"
+
+# if User.count == 0
+#   User.create(
+#     name = "admin"
+#     email = "admin@admin.com"
+#     password: "password"
+#     )
+
+#   3.times do 
+#     name = Faker::Name.unique.name
+#     email = Faker::Internet.email
+#     password = "password"
+#     User.create(name:name, email:email, password:password)
+#   end
 # end
 
 categories = ["Roll and Move", "Worker Placement", "Cooperative", "Deck Building", "Area Control", "Secret Identity", "Legacy Games", "Party Games", "Puzzle Games", "Combat Games"]
@@ -25,3 +31,17 @@ if Category.count == 0
   end
 end
 
+if Post.count < 30
+  20.times do |i|
+    title = Faker::Commerce.product_name
+    price = rand(1..1000)
+    description = Faker::Quote.famous_last_words
+    user_id = rand(1..3)
+    category_id = rand(1..8)
+    post = Post.create(title:title, price:price,description:description,user_id:user_id)
+    
+    post.categories << Category.find(rand(1..10))
+
+    puts "created post #{i + 1}"
+  end
+end

@@ -1,11 +1,29 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_cat, only: [:show]
   load_and_authorize_resource
 
   def index
-    @posts = Post.all
+    if params[:query].present?
+      found_posts = Post.search(params[:query])
+      # @found_posts = Post.kinda_matching(params[:query])
+      # @posts = Post.kinda_spelled_like(params[:query])
+      # @posts = Post.sounds_like(params[:query])
+
+      if params[:cat].present?
+        @posts = found_posts.select { |post| p post.category_ids.select { |id| id == params[:cat].to_i }.any? }
+
+      else
+        @posts = found_posts
+      end
+
+    else
+      @posts = Post.all
+    end
+
   end
+
   
   def show
   end
@@ -50,7 +68,11 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
 
+    def set_cat
+      @categories = Category.all
+    end
+
     def post_params
-      params.require(:post).permit(:title, :price, :description, :picture, category_ids: [] )
+      params.require(:post).permit(:title, :price, :description, :picture, :query, :cat, :commit, :sales, :delivery, category_ids: [] )
     end
 end

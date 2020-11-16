@@ -41,10 +41,13 @@ gem 'jquery-rails'
 gem 'rails_admin'
 
 # payment  
-gem "stripe"
+gem 'stripe'
 
 # internal user messaging 
 gem 'mailboxer'
+
+# search
+gem 'pg_search'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

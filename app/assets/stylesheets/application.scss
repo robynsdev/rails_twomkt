@@ -15,16 +15,56 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 
+%links {
+  text-decoration: none !important;
+  color: black;
+}
+
+#posts-index-links {
+  @extend %links;
+  :hover {
+    @extend %links;
+    background-color: gainsboro;
+  }
+  div {
+    #listing-descript {
+      color: grey;
+      font-size: 80%;
+    }
+    #listing-date {
+      font-size: 70%;
+    }
+  }
+}
+
 .post-img {
-  width: 100px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .show-img {
-  width: 300px;
+  max-width: 100%;
+  height: auto;
 }
 
 .nav-item {
   margin: 0 4px;
+}
+
+.text-green {
+  color: rgb(33, 179, 33);
+}
+
+.text-lg {
+  font-size: 1.8rem;
+}
+
+.nopad {
+  padding: 0;
+}
+
+.overflow {
+  overflow-wrap: break-word;
 }
 
 // .user-area {
