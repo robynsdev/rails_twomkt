@@ -1,5 +1,5 @@
 <h1>Ad listing</h1>
-<div class="post-container">
+<div class="container">
   <div class="row">
     <div class="col-12">
       <%= form_tag(posts_path, method: "get") do %>
@@ -8,18 +8,9 @@
           <%= text_field_tag :query, '', class:'form-control', placeholder:'Search...' %>
         </div>
         <div class="col-3 nopad">
-          <%= select_tag :cat, options_for_select(["Filter All", 
-          "Roll and Move", 
-          "Worker Placement", 
-          "Cooperative", 
-          "Deck Building", 
-          "Area Control", 
-          "Secret Identity", 
-          "Legacy Games", 
-          "Party Games", 
-          "Puzzle Games", 
-          "Combat Games"
-          ]), class:'custom-select'%>
+
+        <%= select_tag :cat, options_from_collection_for_select(Category.all, :id, :name), {:class=>'form-control', :prompt => 'Filter Categories'} %>
+
         </div>
         <div class="col-1 nopad">
           <%= submit_tag "Search", class:'btn btn-dark' %>
@@ -33,4 +24,3 @@
     <%= render 'posts/listing' %>
   </div>
 </div>
-

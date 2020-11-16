@@ -6,31 +6,24 @@ class PostsController < ApplicationController
 
   def index
     if params[:query].present?
-      @found_posts = Post.search(params[:query])
+      found_posts = Post.search(params[:query])
       # @found_posts = Post.kinda_matching(params[:query])
       # @posts = Post.kinda_spelled_like(params[:query])
       # @posts = Post.sounds_like(params[:query])
 
-      # if @found_posts && (params[:cat] != "Filter all")
-      #   @posts = @found_posts.select { |post| Category.find(post.category_ids).name == params[:cat] }
-      # end
+      if params[:cat].present?
+        @posts = found_posts.select { |post| p post.category_ids.select { |id| id == params[:cat].to_i }.any? }
+
+      else
+        @posts = found_posts
+      end
+
     else
       @posts = Post.all
     end
-    @filter = params[""]
+
   end
 
-  # def search
-  #   query = params[:search]
-
-  #   results = Post.where('name LIKE ?', "%#{query}%")
-  #   if params[:filter] == 'Select Filter'
-  #     @posts = results
-  #   else
-  #     symbol = params[:filter].gsub(/ /, '_').downcase!.to_sym
-  #     @posts = results.where(symbol => true)
-  #   end
-  # end
   
   def show
   end
