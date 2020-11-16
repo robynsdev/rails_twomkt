@@ -5,28 +5,32 @@ class PostsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    # @posts = Post.all
     if params[:query].present?
-      @posts = Post.search(params[:query])
-      @posts = Post.kinda_matching(params[:query])
+      @found_posts = Post.search(params[:query])
+      # @found_posts = Post.kinda_matching(params[:query])
       # @posts = Post.kinda_spelled_like(params[:query])
       # @posts = Post.sounds_like(params[:query])
+
+      # if @found_posts && (params[:cat] != "Filter all")
+      #   @posts = @found_posts.select { |post| Category.find(post.category_ids).name == params[:cat] }
+      # end
     else
       @posts = Post.all
     end
+    @filter = params[""]
   end
 
-  def search
-    query = params[:search]
+  # def search
+  #   query = params[:search]
 
-    results = Post.where('name LIKE ?', "%#{query}%")
-    if params[:filter] == 'Select Filter'
-      @posts = results
-    else
-      symbol = params[:filter].gsub(/ /, '_').downcase!.to_sym
-      @posts = results.where(symbol => true)
-    end
-  end
+  #   results = Post.where('name LIKE ?', "%#{query}%")
+  #   if params[:filter] == 'Select Filter'
+  #     @posts = results
+  #   else
+  #     symbol = params[:filter].gsub(/ /, '_').downcase!.to_sym
+  #     @posts = results.where(symbol => true)
+  #   end
+  # end
   
   def show
   end
@@ -76,6 +80,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :price, :description, :picture, :query, :commit, :sales, :delivery, category_ids: [] )
+      params.require(:post).permit(:title, :price, :description, :picture, :query, :cat, :commit, :sales, :delivery, category_ids: [] )
     end
 end
