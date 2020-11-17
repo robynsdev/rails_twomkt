@@ -7,11 +7,15 @@
 
   <div class="navbar-collapse collapse justify-content-stretch" id="navbar7">
     <ul class="navbar-nav ml-auto">
+
       <% if user_signed_in? %>
+        <% if current_user.admin? %>
+          <li class="nav-item"><%= link_to "Admin Dashboard", rails_admin.dashboard_path, :class => "nav-item" %></li>
+        <% end %>
         <li class="nav-item"><%= link_to "#{current_user.name}", edit_user_registration_path, :class => "nav-item" %></li>
         <li class="nav-item"><%= link_to "Sign Out", destroy_user_session_path, method: "delete", :class => "nav-item" %></li>
       <% else %>
-        <li class="nav-item"><%= link_to "Sign In", new_user_session_path, :class => "nav-item" %></li>
+        <li class="nav-item"><%= link_to "Sign In/Sign Up", new_user_session_path, :class => "nav-item" %></li>
       <% end %>
     </ul>
   </div>   

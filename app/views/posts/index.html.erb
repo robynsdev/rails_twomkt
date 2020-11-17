@@ -4,16 +4,16 @@
     <div class="col-12">
       <%= form_tag(posts_path, method: "get") do %>
       <div class="input-group mb-5">
-        <div class="col-8 nopad">
+        <div class="col-sm-8 nopad">
           <%= text_field_tag :query, '', class:'form-control', placeholder:'Search...' %>
         </div>
-        <div class="col-3 nopad">
+        <div class="col-sm-3 nopad">
 
         <%= select_tag :cat, options_from_collection_for_select(Category.all, :id, :name), {:class=>'form-control', :prompt => 'Filter Categories'} %>
 
         </div>
-        <div class="col-1 nopad">
-          <%= submit_tag "Search", class:'btn btn-dark' %>
+        <div class="col-sm-1 nopad">
+          <%= submit_tag "Search", class:'btn btn-dark btn-lg btn-block' %>
         </div>
       </div>
       <% end %>

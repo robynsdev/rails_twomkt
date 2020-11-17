@@ -1,14 +1,14 @@
 <% @posts.each do |post| %>
   <%= link_to post_path(post), id: "posts-index-links" do %>
     <div class="row text-left p-4 border-bottom">
-      <div class="col-3 text-center">
+      <div class="col-sm-3 text-center">
         <%= image_tag post.picture, class: "post-img" if post.picture.attached? %>    
       </div>
-      <div class="col-6">
+      <div class="col-sm-6">
         <%= post.title %>
         <p id="listing-descript"><%= post.description %></p>
       </div>
-      <div class="col-3">
+      <div class="col-sm-3">
         <strong>$<%= post.price %></strong>
         <p id="listing-date">
           <%= time_ago_in_words(post.created_at) %> ago

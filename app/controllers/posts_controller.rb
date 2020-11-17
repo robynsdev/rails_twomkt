@@ -10,18 +10,14 @@ class PostsController < ApplicationController
       # @found_posts = Post.kinda_matching(params[:query])
       # @posts = Post.kinda_spelled_like(params[:query])
       # @posts = Post.sounds_like(params[:query])
-
       if params[:cat].present?
         @posts = found_posts.select { |post| p post.category_ids.select { |id| id == params[:cat].to_i }.any? }
-
       else
         @posts = found_posts
       end
-
     else
       @posts = Post.all
     end
-
   end
 
   
