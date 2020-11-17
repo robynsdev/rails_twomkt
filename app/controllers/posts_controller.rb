@@ -17,7 +17,7 @@ class PostsController < ApplicationController
       @posts = Post.all.select { |post| p post.category_ids.select { |id| id == params[:cat].to_i }.any? }
 
     else
-      @posts = Post.all.reverse
+      @posts = Post.all.order(created_at: :desc)
     end 
 
     # pagination - kaminari
