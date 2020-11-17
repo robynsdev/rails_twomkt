@@ -26,6 +26,8 @@ class PostsController < ApplicationController
 
   
   def show
+    @name = User.find(@post.user_id).name
+    @email = User.find(@post.user_id).email
   end
 
   def new

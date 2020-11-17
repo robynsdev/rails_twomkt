@@ -36,8 +36,10 @@
         <% end %>
       </p>
     </div>
+
     <div class="col-sm-4 text-left">
-      <p> Contact <%= User.find(@post.user_id).name %> </p>
+      <p> Contact <%= @name %>: </p>
+      <%= mail_to @email, "Email", subject: "[Game Hub] #{@post.title}", body: "I'm interested in your Ad. Could you tell me more?", :encode => :javascript %>
     </div>
 
   </div>
