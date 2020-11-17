@@ -312,6 +312,7 @@ DEPENDENCIES
   faker
   jbuilder (~> 2.7)
   jquery-rails
+  kaminari
   listen (~> 3.2)
   mailboxer
   pg (>= 0.18, < 2.0)
