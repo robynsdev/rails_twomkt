@@ -3,7 +3,6 @@
     <div class="col-sm-2">
     </div>
     <div class="col-sm-8">
-    
       <%= form_with model: @post, local: true do |form| %>
 
         <% if @post.errors.any? %>
@@ -62,7 +61,6 @@
         </div>
 
         <div class="form-group form-check">
-        <div class="field ">
           <div class="row border rounded p-2">
             <%= form.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
               <%= b.label(class: "check_box") do %>
@@ -72,7 +70,6 @@
               <% end %>
             <% end %>
           </div>
-        </div>
         </div>
 
         <br>

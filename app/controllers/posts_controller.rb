@@ -5,19 +5,34 @@ class PostsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    if params[:query].present?
+    if params[:query].present? && params[:cat].present?
       found_posts = Post.search(params[:query])
-      # @found_posts = Post.kinda_matching(params[:query])
-      # @posts = Post.kinda_spelled_like(params[:query])
-      # @posts = Post.sounds_like(params[:query])
-      if params[:cat].present?
-        @posts = found_posts.select { |post| p post.category_ids.select { |id| id == params[:cat].to_i }.any? }
-      else
-        @posts = found_posts
-      end
+      @posts = found_posts.select { |post| p post.category_ids.select { |id| id == params[:cat].to_i }.any? }
+
+    elsif params[:query].present? && params[:cat].blank?
+      @posts = Post.search(params[:query])
+
+    elsif params[:query].blank? && params[:cat].present?
+      @posts = Post.all.select { |post| p post.category_ids.select { |id| id == params[:cat].to_i }.any? }
+
     else
       @posts = Post.all
-    end
+    end 
+    
+
+    # if params[:query].present?
+    #   found_posts = Post.search(params[:query])
+    #   # @found_posts = Post.kinda_matching(params[:query])
+    #   # @posts = Post.kinda_spelled_like(params[:query])
+    #   # @posts = Post.sounds_like(params[:query])
+    #   if params[:cat].present?
+    #     @posts = found_posts.select { |post| p post.category_ids.select { |id| id == params[:cat].to_i }.any? }
+    #   else
+    #     @posts = found_posts
+    #   end
+    # else
+    #   @posts = Post.all
+    # end
   end
 
   

@@ -53,7 +53,6 @@
       <div class="input-group mb-5">
         <div class="col-8 nopad">
           <%= text_field_tag :search, '', class:'form-control', placeholder:'Search...', onkeydown:'clickSubmit();' %>
-          <%# <input type=”text” name=”query” id=”query” placeholder=”I want to find…”> %>
         </div>
         <div class="col-4 nopad">
           <%= select_tag "filter", options_for_select(['Select Filter', 
@@ -61,7 +60,6 @@
           'Opt2'
           ]), class:'custom-select'%>
           <%= submit_tag "Search", class:'btn btn-dark', id:'search_submit', style:'display:none' %>
-          <%# <input type=”submit” name=”commit” value=“Search” class=“btn btn-default”> %>
         </div>
       </div>
       <% end %>
