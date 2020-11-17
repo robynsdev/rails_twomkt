@@ -1,21 +1,24 @@
 <h1>Ad listing</h1>
+<br>
 <div class="container">
   <div class="row">
     <div class="col-12">
       <%= form_tag(posts_path, method: "get") do %>
-      <div class="input-group mb-5">
-        <div class="col-8 nopad">
-          <%= text_field_tag :query, '', class:'form-control', placeholder:'Search...' %>
-        </div>
-        <div class="col-3 nopad">
+        <div class="input-group mb-5">
+          
+          <div class="col-sm-3 nopad">
+          <%= select_tag :cat, options_from_collection_for_select(Category.all, :id, :name), {:class=>'form-control', :prompt => 'Categories'} %>
+          </div>
 
-        <%= select_tag :cat, options_from_collection_for_select(Category.all, :id, :name), {:class=>'form-control', :prompt => 'Filter Categories'} %>
-
+          <div class="col-sm-7 nopad">
+            <%= text_field_tag :query, '', class:'form-control', placeholder:'Search...' %>
+          </div>
+          
+          <div class="col-sm-2 nopad">
+            <%= submit_tag "Search", class:'btn btn-dark d-flex justify-content-center d-md-table mx-auto btn-block' %>
+          </div>
+          
         </div>
-        <div class="col-1 nopad">
-          <%= submit_tag "Search", class:'btn btn-dark' %>
-        </div>
-      </div>
       <% end %>
     </div>
   </div>
