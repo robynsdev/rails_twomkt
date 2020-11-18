@@ -43,9 +43,6 @@ gem 'rails_admin'
 # payment  
 gem 'stripe'
 
-# internal user messaging 
-gem 'mailboxer'
-
 # search
 gem 'pg_search'
 
