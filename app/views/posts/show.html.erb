@@ -15,7 +15,7 @@
       <%= image_tag @post.picture, class: "show-img" if @post.picture.attached? %>
       <p>
         <span class="text-green text-lg">$<%= @post.price %></span>
-        <span><%= @post.sales %></span>
+        <span><%= @post.sales.capitalize.gsub("_", " ") %></span>
       </p>
       <p>
         <% if @post.delivery %>
@@ -78,4 +78,3 @@
     </div>
   </div>
 </div>
-
