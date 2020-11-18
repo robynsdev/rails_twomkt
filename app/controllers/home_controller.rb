@@ -12,6 +12,6 @@ class HomeController < ApplicationController
     @posts = @posts.sort_by { |post| post.created_at }.reverse!
     # pagination - kaminari
     @posts = Kaminari.paginate_array(@posts).page(params[:page])
-
+    end
   end
 end
