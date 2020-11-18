@@ -24,39 +24,8 @@
 
 <nav class="navbar navbar-light bg-light">
   <form class="form-inline ml-auto">
-    <button id="checkout-button">Donate?</button>
 
     <%= link_to 'Post an ad', new_post_path, :class => "btn btn-outline-success", :type => "button" %>
   </form>
 </nav>
 
-  <script type="text/javascript">
-    // Create an instance of the Stripe object with your publishable API key
-    var stripe = Stripe('pk_test_51HmY9NAmy86VZXiMVt1kAQaatkbJYzxIhQQf0XO0RHNAOphQBoXG8kIn3I0lYYn4srPnfelZvqMPfKR6HWSAx9SB00ZJwPqNcs');
-    var checkoutButton = document.getElementById('checkout-button');
-
-    checkoutButton.addEventListener('click', function() {
-      // Create a new Checkout Session using the server-side endpoint you
-      // created in step 3.
-      fetch('/checkout', {
-        method: 'POST',
-      })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(session) {
-        return stripe.redirectToCheckout({ sessionId: session.id });
-      })
-      .then(function(result) {
-        // If `redirectToCheckout` fails due to a browser or network
-        // error, you should display the localized error message to your
-        // customer using `error.message`.
-        if (result.error) {
-          alert(result.error.message);
-        }
-      })
-      .catch(function(error) {
-        console.error('Error:', error);
-      });
-    });
-  </script>
