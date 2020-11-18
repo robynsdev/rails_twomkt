@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  post 'checkout', to: 'stripe#checkout'
+  post 'checkout', to: 'stripe#checkout', as: 'checkout'
+    
   get  'checkout/success', to: 'stripe#success', as: 'successful_checkout'
-
+  # post  'checkout/success', to: 'stripe#success', as: 'successful_checkout'
     
   devise_for :users
   resources :posts
