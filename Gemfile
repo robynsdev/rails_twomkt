@@ -43,6 +43,9 @@ gem 'rails_admin'
 # payment  
 gem 'stripe'
 
+# mail
+gem 'mailboxer'
+
 # search
 gem 'pg_search'
 
