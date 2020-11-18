@@ -10,6 +10,7 @@
     </div>
   </div>
   <div class="row">
+    
     <div class="col-sm-8 text-left">
       <%= image_tag @post.picture, class: "show-img" if @post.picture.attached? %>
       <p>
@@ -36,9 +37,13 @@
         <% end %>
       </p>
     </div>
-    <div class="col-sm-4 text-left">
-      <p> Contact <%= User.find(@post.user_id).name %> </p>
-    </div>
+
+    <% if user_signed_in? %>
+      <div class="col-sm-4 text-left">
+        <p> Contact <%= @name %>: </p>
+        <%= mail_to @email, "Email", subject: "[Game Hub] #{@post.title}", body: "I'm interested in your Ad. Could you tell me more?", :encode => :javascript %>
+      </div>
+    <% end %>
 
   </div>
   <div class="border rounded-sm p-3">
@@ -58,7 +63,7 @@
     </div>  
     <div class="row">
       <div class="col-12">
-        <button id="checkout-button">Purchase</button>
+        <button id="checkout-button">Donate?</button>
         <br>
         <br>
         <% if can? :update, @post %>

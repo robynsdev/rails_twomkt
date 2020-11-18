@@ -17,15 +17,21 @@ class PostsController < ApplicationController
       @posts = Post.all.select { |post| p post.category_ids.select { |id| id == params[:cat].to_i }.any? }
 
     else
-      @posts = Post.all.order(created_at: :desc)
+      # @posts = Post.all.order(created_at: :desc)
+      @posts = Post.all
     end 
 
+    # sort posts by newest to oldest
+    @posts = @posts.sort_by { |post| post.created_at }.reverse!
     # pagination - kaminari
     @posts = Kaminari.paginate_array(@posts).page(params[:page])
   end
 
   
   def show
+    # for mail_to
+    @name = User.find(@post.user_id).name
+    @email = User.find(@post.user_id).email
   end
 
   def new

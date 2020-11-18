@@ -11,10 +11,6 @@ class Post < ApplicationRecord
   # pg_search_scope :kinda_spelled_like, 
     # against: [:title, :description], 
     # using: :trigram
-  pg_search_scope :search_with_cat, 
-    against: [:title, :description], 
-    associated_against: { category: [:name] }, 
-    using: {tsearch: {dictionary: "english"}}
   
   belongs_to :user
   has_one_attached :picture

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   devise_for :users
   resources :posts
 
+
+  get 'listing', to: 'home#ad_listing', as: 'ad_listing'
   get 'home/index'
   # get '*path', to: 'home#index', via: :all
   root 'home#index'

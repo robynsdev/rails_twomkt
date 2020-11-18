@@ -12,6 +12,7 @@
         <% if current_user.admin? %>
           <li class="nav-item"><%= link_to "Admin Dashboard", rails_admin.dashboard_path, :class => "nav-item" %></li>
         <% end %>
+        <li class="nav-item"><%= link_to "Your Ads", ad_listing_path, :class => "nav-item" %></li>
         <li class="nav-item"><%= link_to "#{current_user.name}", edit_user_registration_path, :class => "nav-item" %></li>
         <li class="nav-item"><%= link_to "Sign Out", destroy_user_session_path, method: "delete", :class => "nav-item" %></li>
       <% else %>
