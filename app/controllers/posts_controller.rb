@@ -9,11 +9,11 @@ class PostsController < ApplicationController
     # posts and categories have a many to many relationship
     # if :cat present, loop through posts from search/all posts and loop through each post's categories, checking if id matches :cat
     if params[:query].present? && params[:cat].present?
-      found_posts = Post.search(params[:query])
+      found_posts = Post.kinda_matching(params[:query])
       @posts = found_posts.select { |post| p post.category_ids.select { |id| id == params[:cat].to_i }.any? }
 
     elsif params[:query].present? && params[:cat].blank?
-      @posts = Post.search(params[:query])
+      @posts = Post.kinda_matching(params[:query])
 
     elsif params[:query].blank? && params[:cat].present?
       @posts = Post.all.select { |post| p post.category_ids.select { |id| id == params[:cat].to_i }.any? }
@@ -34,7 +34,6 @@ class PostsController < ApplicationController
     # returns all rows in Category
     @categories = Category.all
     # for mail_to
-    # 
     @name = User.find(@post.user_id).name
     @email = User.find(@post.user_id).email
   end
