@@ -12,40 +12,54 @@
   <div class="row">
     
     <div class="col-sm-8 text-left">
-      <%= image_tag @post.picture, class: "show-img" if @post.picture.attached? %>
+        <%= image_tag @post.picture, class: "post-img" rescue image_tag 'logo_b.png', class: "post-img" %>    
       <p>
         <span class="text-green text-lg">$<%= @post.price %></span>
-        <span><%= @post.sales.capitalize.gsub("_", " ") %></span>
+        <span><%= @post.sales.capitalize.gsub("_", " ") if @post.sales %></span>
       </p>
       <p>
-        <% if @post.delivery %>
-          <i><%= @post.delivery.capitalize.gsub("_", " ") %></i>
-        <% end %>
+        <%= @post.suburb.capitalize if @post.suburb %>
+        <%= @post.state if @post.state %>
+      </p>
+      <p>
+          <i><%= @post.delivery.capitalize.gsub("_", " ") if @post.delivery %></i>
       </p>
       <p>
         <strong>Description:</strong>
         <%= simple_format(@post.description) %>
       </p>
       <p>
-        <strong>Categories:</strong>
-        <% @post.category_ids.each_with_index do |cat_id, i| %>
-          <% if i == @post.category_ids.length - 1 %>
-            <%= @categories.find(cat_id).name %>
-          <% else %>
-            <%= @categories.find(cat_id).name %>, 
+        <% if @post.category_ids %>
+          <strong>Categories:</strong>
+          <% @post.category_ids.each_with_index do |cat_id, i| %>
+            <% if i == @post.category_ids.length - 1 %>
+              <%= @categories.find(cat_id).name %>
+            <% else %>
+              <%= @categories.find(cat_id).name %>, 
+            <% end %>
           <% end %>
         <% end %>
       </p>
     </div>
 
-    <% if user_signed_in? %>
-      <div class="col-sm-4 text-left">
-        <p> Contact <%= @name %>: </p>
-        <%= mail_to @email, "Email", subject: "[Game Hub] #{@post.title}", body: "I'm interested in your Ad. Could you tell me more?", :encode => :javascript %>
-      </div>
-    <% end %>
+    <div class="col-sm-4 text-left">
+        <p>Ad posted by <%= @name %></p>
+        <% if user_signed_in? %>
+            <%= mail_to @email, "Email #{@name}", subject: "[Game Hub] #{@post.title}", body: "I'm interested in your Ad. Could you tell me more?", :encode => :javascript %>
+            <br>
+            <br>
+            <br>
+            <%= render 'offers/form' %>
+            <%= render @post.offers.reject(&:new_record?) %>
+
+        <% else %>
+          <p class="font-italic text-info">Sign in to contact the seller</p>
+        <% end %>
+    </div>
 
   </div>
+
+  
   <div class="border rounded-sm p-3">
     <div class="row">
       <div class="col-6 text-left">

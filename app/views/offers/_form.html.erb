@@ -1,0 +1,17 @@
+      <div class=" text-left m-2">
+      <p>Make an offer:</p>
+      <%= form_with(model: [ @post, @post.offers.build ], local: true) do |form| %>
+        <div class="input-group mb-2">
+
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+
+            <%= form.text_field :amount, class: "form-control" %>
+
+          <div class="input-group-append">
+            <%= form.submit "Offer", class: 'btn btn-outline-secondary' %>
+          </div>
+          
+        </div>
+      <% end %>

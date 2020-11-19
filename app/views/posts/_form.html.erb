@@ -3,6 +3,7 @@
     <div class="col-sm-2">
     </div>
     <div class="col-sm-8">
+      <p>Compulsory fields are marked with *</p>
       <%= form_with model: @post, local: true do |form| %>
 
         <% if @post.errors.any? %>
@@ -20,44 +21,55 @@
         <% end %>
 
         <div class="form-group">
-          <%= form.label :title %><br>
-          <%= form.text_field :title %>
+          <%= form.label :title %>*<br>
+          <%= form.text_field :title, :placeholder => "Title" %>
         </div>
 
         <div class="form-group">
-          <%= form.label :price %><br>
+          <%= form.label :price %>*<br>
           <%= form.text_field :price %>
         </div>
 
         <div class="form-group">
-        <div class="field">
-          <%= form.radio_button :sales, "fixed_price" %>
-          <%= form.label :sales, "Fixed price", :value => "fixed_price"  %>
-          <%= form.radio_button :sales, "negotiable" %>
-          <%= form.label :sales, "Negotiable", :value => "negotiable" %>
-        </div>
+          <div class="field">
+            <%= form.radio_button :sales, "fixed_price" %>
+            <%= form.label :sales, "Fixed price", :value => "fixed_price"  %>
+            <%= form.radio_button :sales, "negotiable" %>
+            <%= form.label :sales, "Negotiable", :value => "negotiable" %>
+          </div>
         </div>
 
         <div class="form-group">
-          <%= form.label :description %><br>
+          <%= form.label :description %>*<br>
           <%= form.text_area :description, cols: "30", rows: "10", style: "white-space: pre-wrap;" %>
         </div>
 
         <div class="form-group">
           <%= form.label :picture %><br>
           <%= form.file_field :picture, accept: 'image/png, image/jpg, image/jpeg' %>
-          <%= image_tag @post.picture, class: "post-img" if @post.picture.attached? %>    
+          <%# <%= image_tag @post.picture, class: "post-img" rescue image_tag('logo_b.png') %>    
+          <%= image_tag @post.picture, class: "post-img" if @post.picture.attached? %>
         </div>
 
         <div class="form-group">
-        <div class="field">
-          <%= form.radio_button :delivery, "delivery_only" %>
-          <%= form.label :delivery, "Delivery", :value => "delivery_only"  %>
-          <%= form.radio_button :delivery, "collection_only" %>
-          <%= form.label :delivery, "Collection", :value => "collection_only" %>
-          <%= form.radio_button :delivery, "delivery_or_collection" %>
-          <%= form.label :delivery, "Either", :value => "delivery_or_collection" %>
+          <div class="field">
+            <%= form.radio_button :delivery, "delivery_only" %>
+            <%= form.label :delivery, "Delivery", :value => "delivery_only"  %>
+            <%= form.radio_button :delivery, "collection_only" %>
+            <%= form.label :delivery, "Collection", :value => "collection_only" %>
+            <%= form.radio_button :delivery, "delivery_or_collection" %>
+            <%= form.label :delivery, "Either", :value => "delivery_or_collection" %>
+          </div>
         </div>
+
+        <div class="form-group">
+          <%= form.label :suburb %><br>
+          <%= form.text_field :suburb %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :state %><br>
+          <%= form.select :state, [ 'NSW','QLD','SA', 'TAS', 'VIC', 'WA', 'ACT', 'NT' ], :prompt => 'Select a state' %>
         </div>
 
         <div class="form-group form-check">
@@ -77,14 +89,9 @@
           <p>
             <%= form.submit %>
           </p>
-        <% end %>
-
-      </div>
-
+      <% end %>
     </div>
     <div class="col-sm-2">
     </div>
   </div>
 </div>
-</div>
-
