@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_18_212542) do
+ActiveRecord::Schema.define(version: 2020_11_18_230940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 2020_11_18_212542) do
   create_table "categories_posts", id: false, force: :cascade do |t|
     t.bigint "category_id", null: false
     t.bigint "post_id", null: false
+  end
+
+  create_table "offers", force: :cascade do |t|
+    t.integer "amount"
+    t.string "commenter"
+    t.boolean "accept", default: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_offers_on_post_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -87,6 +97,7 @@ ActiveRecord::Schema.define(version: 2020_11_18_212542) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "offers", "posts"
   add_foreign_key "posts", "users"
   add_foreign_key "transactions", "posts"
   add_foreign_key "transactions", "users", column: "buyer_id"

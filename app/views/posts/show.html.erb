@@ -12,7 +12,7 @@
   <div class="row">
     
     <div class="col-sm-8 text-left">
-      <%= image_tag @post.picture, class: "show-img" if @post.picture.attached? %>
+        <%= image_tag @post.picture, class: "post-img" rescue image_tag 'logo_b.png', class: "post-img" %>    
       <p>
         <span class="text-green text-lg">$<%= @post.price %></span>
         <span><%= @post.sales.capitalize.gsub("_", " ") if @post.sales %></span>
@@ -42,18 +42,27 @@
       </p>
     </div>
 
-    <div class=" bg-light rounded text-left m-2 p-2">
-      <p>Ad posted by <%= @name %></p>
-      <% if user_signed_in? %>
-        <div class="col-sm-4 text-left">
-          <p>Contact <%= @name %>: </p>
-          <%= mail_to @email, "Email", subject: "[Game Hub] #{@post.title}", body: "I'm interested in your Ad. Could you tell me more?", :encode => :javascript %>
-        </div>
-      <% else %>
-        <p class="font-italic text-info">Sign in to contact the seller</p>
-      <% end %>
+    <div class="col-sm-4 text-left">
+
+
+      <%= render 'offers/form' %>
+      
+      <%= render @post.offers %>
+
+
+        <p>Ad posted by <%= @name %></p>
+        <% if user_signed_in? %>
+            <p>Contact <%= @name %>: </p>
+            <%= mail_to @email, "Email", subject: "[Game Hub] #{@post.title}", body: "I'm interested in your Ad. Could you tell me more?", :encode => :javascript %>
+        <% else %>
+          <p class="font-italic text-info">Sign in to contact the seller</p>
+        <% end %>
+      </div>
     </div>
+
   </div>
+
+  
   <div class="border rounded-sm p-3">
     <div class="row">
       <div class="col-6 text-left">

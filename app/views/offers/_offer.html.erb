@@ -1,0 +1,9 @@
+    <div class="row">
+      <%= link_to 'Accept', [offer.post, offer],
+                  method: :accept,
+                  data: { confirm: 'Are you sure?' } %>
+      <%= "#{offer.commenter} is offering #{offer.amount}" %>
+      <%= link_to 'Delete', [offer.post, offer],
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' } %>
+    </div>

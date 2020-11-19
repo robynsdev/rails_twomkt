@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-  get 'search', to: 'posts#search'
-  resources :search, only: [:index]
-  
   devise_for :users
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-    
-  resources :posts
 
+  get 'search', to: 'posts#search'
+  resources :search, only: [:index]
+  resources :posts
+  resources :posts do
+    resources :offers
+  end
   get 'listing', to: 'home#ad_listing', as: 'ad_listing'
   get 'home/index'
   root to: 'home#index'

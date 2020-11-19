@@ -15,6 +15,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_one_attached :picture
   has_and_belongs_to_many :categories
+  has_many :offers, dependent: :destroy
 
   validates :title, presence: true, length: {minimum: 5, maximum: 50}
   validates :price, presence: true, numericality: { only_integer: true }
