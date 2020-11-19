@@ -1,10 +1,11 @@
 class Post < ApplicationRecord
   include PgSearch::Model
   
-  pg_search_scope :search, against: [:title, :description]
   pg_search_scope :kinda_matching, 
     against: [:title, :description], 
     using: {tsearch: {dictionary: "english"}}
+
+  # Would like to implement other searches in the future. Couldn't get them working in time.
   # pg_search_scope :sounds_like, 
     # against: [:title, :description], 
     # using: :dmetaphone
