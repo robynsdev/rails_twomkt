@@ -43,21 +43,18 @@
     </div>
 
     <div class="col-sm-4 text-left">
-
-
-      <%= render 'offers/form' %>
-      
-      <%= render @post.offers %>
-
-
         <p>Ad posted by <%= @name %></p>
         <% if user_signed_in? %>
-            <p>Contact <%= @name %>: </p>
-            <%= mail_to @email, "Email", subject: "[Game Hub] #{@post.title}", body: "I'm interested in your Ad. Could you tell me more?", :encode => :javascript %>
+            <%= mail_to @email, "Email #{@name}", subject: "[Game Hub] #{@post.title}", body: "I'm interested in your Ad. Could you tell me more?", :encode => :javascript %>
+            <br>
+            <br>
+            <br>
+            <%= render 'offers/form' %>
+            <%= render @post.offers.reject(&:new_record?) %>
+
         <% else %>
           <p class="font-italic text-info">Sign in to contact the seller</p>
         <% end %>
-      </div>
     </div>
 
   </div>

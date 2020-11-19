@@ -2,20 +2,8 @@ class OffersController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @offer = @post.offers.new(offer_params)
-    @offer.commenter = current_user.id if current_user
-    # @offer = @post.offers.create(offer_params)
-    if @post.save
-      redirect_to post_path(@post)
-    else
-      render 'new'
-    end
-  end
-
-  def accept
-    @post = Post.find(params[:post_id])
-    @offer = @post.offers.find(params[:id])
-    @offer.accept = true
-    Transaction.create!(seller_id: @offer.commenter, buyer_id: current_user.id, post_id: @post.id)
+    @offer.commenter = current_user.name if current_user
+    @offer.save
     redirect_to post_path(@post)
   end
 
